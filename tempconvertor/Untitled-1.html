@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Temperature Converter</title>
+  <style>
+    .container {
+      width: 300px;
+      margin: 50px auto;
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 5px 10px;
+      color:rgb(200, 127, 255);
+      
+    }
+    p {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Temperature Converter</h2>
+    <label for="temperature">Temperature:</label>
+    <input type="text" id="temperature" placeholder="Enter temperature">
+    <label for="unit">Unit:</label>
+    <select id="unit">
+      <option value="celsius">Celsius</option>
+      <option value="fahrenheit">Fahrenheit</option>
+      <option value="kelvin">Kelvin</option>
+    </select>
+    <button id="convertBtn">Convert</button>
+    <p id="result"></p>
+  </div>
+  <script>
+    function convertTemperature() {
+//here i get input from user 
+      const temperatureInput = document.getElementById('temperature').value;
+      const unitInput = document.getElementById('unit').value;
+
+      if (isNaN(temperatureInput)) {
+        alert('Please enter a valid number for temperature.');
+        return;
+      }
+
+      let result, resultUnit;
+      if (unitInput === 'celsius') {
+        const celsius = parseFloat(temperatureInput);
+        const fahrenheit = (celsius * 9/5) + 32;
+        const kelvin = celsius + 273.15;
+
+        result = fahrenheit;
+        resultUnit = '°F';
+
+      } else if (unitInput === 'fahrenheit') {
+        const fahrenheit = parseFloat(temperatureInput);
+        const celsius = (fahrenheit - 32) * 5/9;
+        const kelvin = (fahrenheit + 459.67) * 5/9;
+
+        result = celsius;
+        resultUnit = '°C';
+
+      } else if (unitInput === 'kelvin') {
+        const kelvin = parseFloat(temperatureInput);
+        const celsius = kelvin - 273.15;
+        const fahrenheit = (kelvin * 9/5) - 459.67;
+
+        result = celsius;
+        resultUnit = '°C';
+      }
+      // here result is show 
+      const resultElement = document.getElementById('result');
+      resultElement.textContent = `Converted Temperature is : ${result.toFixed(2)} ${resultUnit}`;
+    }
+
+    const convertButton = document.getElementById('convertBtn');
+    convertButton.addEventListener('click', convertTemperature);
+  </script>
+</body>
+</html>
